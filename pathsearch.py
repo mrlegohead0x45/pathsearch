@@ -1,5 +1,5 @@
 import os
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from collections import namedtuple
 from typing import List
 
@@ -17,6 +17,21 @@ def get_pathext() -> List[str]:
     return os.getenv("PATHEXT", "").split(os.path.pathsep)
 
 
+def get_paths(args: Namespace) -> List[str]:
+    if args.path is not None:  # if literal path was specified
+        paths = args.path.split(os.pathsep)
+        verbose_print(f"Using literal path: {paths}", args.verbose)
+
+    elif args.env is not None:  # if env var was specified
+        verbose_print(f"Using environment variable: {args.env.name}", args.verbose)
+        paths = args.env.value.split(os.pathsep)
+        paths.remove(
+            ""
+        )  # remove empty string if there is one (e.g if the value ends in a path separator)
+
+    return paths
+
+
 def verbose_print(msg: str, verbose: bool) -> None:
     if verbose:
         print(msg)
@@ -25,6 +40,14 @@ def verbose_print(msg: str, verbose: bool) -> None:
 parser = ArgumentParser()
 parser.add_argument("file", help="File to search for on the specified path")
 parser.add_argument("-v", "--verbose", action="store_true", help="Be verbose")
+parser.add_argument(
+    "-pe",
+    "--pathext",
+    action="store_true",
+    default=False,
+    help="Look for file with extensions in environment variable PATHEXT "
+    "(normally only set for Windows) (default: False)",
+)
 
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(
@@ -42,26 +65,15 @@ args = parser.parse_args()
 
 paths: List[str]
 
-if args.path is not None:
-    paths = args.path.split(os.pathsep)
-    verbose_print(f"Using literal path: {paths}", args.verbose)
-
-elif args.env is not None:
-    verbose_print(f"Using environment variable: {args.env.name}", args.verbose)
-    paths = args.env.value.split(os.pathsep)
-    paths.remove(
-        ""
-    )  # remove empty string if there is one (e.g if the value ends in a path separator)
-
-for path in paths:
+for path in get_paths(args):
     if not os.path.isdir(path):
         verbose_print(f"Skipping {path} (not a directory)", args.verbose)
         continue
 
-    if os.path.isfile(os.path.join(path, args.file)):
-        print(f"File {args.file!r} found at {path!r}")
+    filename = os.path.join(path, args.file)
+    if os.path.isfile(filename):
+        print(f"File {args.file!r} found at '{filename}'")
 
-    elif os.name == "nt":
-        for pathext in get_pathext():
-            if os.path.isfile(os.path.join(path, args.file + pathext)):
-                print(f"File {(args.file+pathext)!r} found at '{path}'")
+    for ext in get_pathext() if args.pathext else []:
+        if os.path.isfile(filename + ext):
+            print(f"File {(args.file+ext)!r} found at '{filename}'")
