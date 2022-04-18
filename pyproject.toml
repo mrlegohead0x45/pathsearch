@@ -13,6 +13,9 @@ black = "^22.3.0"
 isort = "^5.10.1"
 mypy = "^0.942"
 
+[tool.poetry.scripts]
+pathsearch = "pathsearch:main"
+
 [tool.isort]
 profile = "black"
 

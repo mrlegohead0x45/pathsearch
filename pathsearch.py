@@ -1,23 +1,22 @@
 import os
 from argparse import ArgumentParser, Namespace
 from collections import namedtuple
-from typing import List
 
-EnviromentVariable = namedtuple("EnviromentVariable", ["name", "value"])
+EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
 
-def env_var(var_name: str) -> EnviromentVariable:
+def env_var(var_name: str) -> EnvironmentVariable:
     if (var_value := os.getenv(var_name)) is None:
         raise ValueError  # argparse will catch this and print an error message
 
-    return EnviromentVariable(var_name, var_value)
+    return EnvironmentVariable(var_name, var_value)
 
 
-def get_pathext() -> List[str]:
+def get_pathext() -> list[str]:
     return os.getenv("PATHEXT", "").split(os.path.pathsep)
 
 
-def get_paths(args: Namespace) -> List[str]:
+def get_paths(args: Namespace) -> list[str]:
     if args.path is not None:  # if literal path was specified
         paths = args.path.split(os.pathsep)
         verbose_print(f"Using literal path: {paths}", args.verbose)
@@ -61,19 +60,23 @@ group.add_argument(
     type=env_var,  # will call env_var() with the value of the argument
 )
 
-args = parser.parse_args()
 
-paths: List[str]
+def main() -> None:
+    args = parser.parse_args()
 
-for path in get_paths(args):
-    if not os.path.isdir(path):
-        verbose_print(f"Skipping {path} (not a directory)", args.verbose)
-        continue
+    for path in get_paths(args):
+        if not os.path.isdir(path):
+            verbose_print(f"Skipping {path} (not a directory)", args.verbose)
+            continue
 
-    filename = os.path.join(path, args.file)
-    if os.path.isfile(filename):
-        print(f"File {args.file!r} found at '{filename}'")
+        filename = os.path.join(path, args.file)
+        if os.path.isfile(filename):
+            print(f"File {args.file!r} found at '{filename}'")
 
-    for ext in get_pathext() if args.pathext else []:
-        if os.path.isfile(filename + ext):
-            print(f"File {(args.file+ext)!r} found at '{filename}'")
+        for ext in get_pathext() if args.pathext else []:
+            if os.path.isfile(filename + ext):
+                print(f"File {(args.file+ext)!r} found at '{filename + ext}'")
+
+
+if __name__ == "__main__":
+    main()
