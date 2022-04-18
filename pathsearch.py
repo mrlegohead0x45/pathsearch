@@ -1,6 +1,7 @@
 import os
 from argparse import ArgumentParser, Namespace
 from collections import namedtuple
+from sys import exit
 
 EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
@@ -61,22 +62,37 @@ group.add_argument(
 )
 
 
-def main() -> None:
+def main() -> int:
     args = parser.parse_args()
 
-    for path in get_paths(args):
-        if not os.path.isdir(path):
-            verbose_print(f"Skipping {path} (not a directory)", args.verbose)
+    found = False
+
+    for dir in get_paths(args):
+        if not os.path.isdir(dir):
+            verbose_print(f"Skipping {dir} (not a directory)", args.verbose)
             continue
 
-        filename = os.path.join(path, args.file)
-        if os.path.isfile(filename):
-            print(f"File {args.file!r} found at '{filename}'")
+        full_filepath = os.path.join(dir, args.file)
+        filepaths = [full_filepath] + [
+            # add extensions if pathext is set
+            os.path.join(dir, args.file + ext)
+            for ext in get_pathext()
+            if args.pathext
+        ]
+        for filepath in filepaths:
+            if os.path.isfile(filepath):
+                found = True
+                print(f"File '{args.file}' found at '{filepath}'")
 
-        for ext in get_pathext() if args.pathext else []:
-            if os.path.isfile(filename + ext):
-                print(f"File {(args.file+ext)!r} found at '{filename + ext}'")
+            else:
+                verbose_print(f"File '{args.file}' not found in '{dir}'", args.verbose)
+
+    if not found:
+        print(f"File {args.file!r} not found")
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())
