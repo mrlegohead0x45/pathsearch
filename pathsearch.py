@@ -2,6 +2,7 @@ import os
 from argparse import ArgumentParser, Namespace
 from collections import namedtuple
 from sys import exit
+from typing import NoReturn, Optional
 
 EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
@@ -62,8 +63,8 @@ group.add_argument(
 )
 
 
-def main() -> int:
-    args = parser.parse_args()
+def main(args_list: Optional[list[str]] = None) -> int:
+    args = parser.parse_args(args_list)  # uses sys.argv[1:] if args is None
 
     found = False
 
@@ -94,5 +95,9 @@ def main() -> int:
     return 0
 
 
-if __name__ == "__main__":
+def real_main() -> NoReturn:
     exit(main())
+
+
+if __name__ == "__main__":
+    real_main()

@@ -14,7 +14,7 @@ isort = "^5.10.1"
 mypy = "^0.942"
 
 [tool.poetry.scripts]
-pathsearch = "pathsearch:main"
+pathsearch = "pathsearch:real_main"
 
 [tool.isort]
 profile = "black"
