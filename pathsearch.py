@@ -38,7 +38,7 @@ def verbose_print(msg: str, verbose: bool) -> None:
         print(msg)
 
 
-parser = ArgumentParser()
+parser = ArgumentParser(description="Search for a file in a path")
 parser.add_argument("file", help="File to search for on the specified path")
 parser.add_argument("-v", "--verbose", action="store_true", help="Be verbose")
 parser.add_argument(
@@ -47,7 +47,7 @@ parser.add_argument(
     action="store_true",
     default=False,
     help="Look for file with extensions in environment variable PATHEXT "
-    "(normally only set for Windows) (default: False)",
+    "(normally only set on Windows) (default: False)",
 )
 
 group = parser.add_mutually_exclusive_group(required=True)
