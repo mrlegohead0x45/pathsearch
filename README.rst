@@ -17,6 +17,7 @@ Install
 You can install this script from PyPi with your favorite package manager.
 For example:
 ::
+    
     pip install pathsearch
     poetry add pathsearch
 
