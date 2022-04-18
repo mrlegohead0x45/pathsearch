@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pathsearch"
 version = "1.0.0"
-description = "script to search paths for files"
+description = "A script to search for a file in a list of directories."
 authors = ["mrlegohead0x45 <mrlegohead0x45@gmail.com>"]
 license = "MIT"
 homepage = "https://github.com/mrlegohead0x45/pathsearch"
