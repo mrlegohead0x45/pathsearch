@@ -1,9 +1,20 @@
 [tool.poetry]
 name = "pathsearch"
-version = "0.1.0"
+version = "1.0.0"
 description = "script to search paths for files"
 authors = ["mrlegohead0x45 <mrlegohead0x45@gmail.com>"]
 license = "MIT"
+homepage = "https://github.com/mrlegohead0x45/pathsearch"
+repository = "https://github.com/mrlegohead0x45/pathsearch"
+readme = "README.rst"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Utilities",
+    "Environment :: Console"
+    # poetry adds license and python version
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -12,6 +23,7 @@ python = "^3.10"
 black = "^22.3.0"
 isort = "^5.10.1"
 mypy = "^0.942"
+flake8 = "^4.0.1"
 
 [tool.poetry.scripts]
 pathsearch = "pathsearch:real_main"
