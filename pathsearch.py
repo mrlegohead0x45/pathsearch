@@ -4,6 +4,7 @@ from collections import namedtuple
 from sys import exit
 from typing import NoReturn, Optional
 
+VERSION = "1.1.0"
 EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
 
@@ -39,8 +40,8 @@ def verbose_print(msg: str, verbose: bool) -> None:
 
 
 parser = ArgumentParser(description="Search for a file in a path")
+parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {VERSION}")
 parser.add_argument("file", help="File to search for on the specified path")
-parser.add_argument("-v", "--verbose", action="store_true", help="Be verbose")
 parser.add_argument(
     "-pe",
     "--pathext",
@@ -50,11 +51,17 @@ parser.add_argument(
     "(normally only set on Windows) (default: False)",
 )
 
-group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument(
+verbosity_group = parser.add_mutually_exclusive_group()
+verbosity_group.add_argument("-v", "--verbose", action="store_true", help="Be verbose")
+verbosity_group.add_argument(
+    "-q", "--quiet", action="store_true", help="Be quiet (only print found files)"
+)
+
+src_group = parser.add_mutually_exclusive_group(required=True)
+src_group.add_argument(
     "-p", "--path", help="Literal path to look in (e.g. /usr/bin:/bin:/usr/sbin:/sbin)"
 )
-group.add_argument(
+src_group.add_argument(
     "-e",
     "--env",
     help="Environment variable to take path to search from (e.g. PATH or LD_LIBRARY_PATH)",
@@ -89,7 +96,8 @@ def main(args_list: Optional[list[str]] = None) -> int:
                 verbose_print(f"File '{args.file}' not found in '{dir}'", args.verbose)
 
     if not found:
-        print(f"File {args.file!r} not found")
+        if not args.quiet:
+            print(f"File '{args.file}' not found")
         return 1
 
     return 0
