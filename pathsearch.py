@@ -4,7 +4,7 @@ from collections import namedtuple
 from sys import exit
 from typing import NoReturn, Optional
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
 
@@ -39,7 +39,7 @@ def verbose_print(msg: str, verbose: bool) -> None:
         print(msg)
 
 
-parser = ArgumentParser(description="Search for a file in a path")
+parser = ArgumentParser(description="Search for a file in a list of directories")
 parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {VERSION}")
 parser.add_argument("file", help="File to search for on the specified path")
 parser.add_argument(
@@ -90,7 +90,11 @@ def main(args_list: Optional[list[str]] = None) -> int:
         for filepath in filepaths:
             if os.path.isfile(filepath):
                 found = True
-                print(f"File '{args.file}' found at '{filepath}'")
+                print(
+                    f"File '{args.file}' found at '{filepath}'"
+                    if not args.quiet
+                    else filepath
+                )
 
             else:
                 verbose_print(f"File '{args.file}' not found in '{dir}'", args.verbose)

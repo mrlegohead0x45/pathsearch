@@ -27,17 +27,19 @@ Usage
 ::
 
     $ pathsearch -h
-    usage: pathsearch [-h] [-v] [-pe] (-p PATH | -e VAR) file
+    usage: pathsearch [-h] [-V] [-pe] [-v | -q] (-p PATH | -e VAR) file
 
-    Search for a file in a path
+    Search for a file in a list of directories
 
     positional arguments:
     file                  File to search for on the specified path
 
     options:
     -h, --help            show this help message and exit
-    -v, --verbose         Be verbose
+    -V, --version         show program's version number and exit
     -pe, --pathext        Look for file with extensions in environment variable PATHEXT (normally only set on Windows) (default: False)
+    -v, --verbose         Be verbose
+    -q, --quiet           Be quiet (only print found files)
     -p PATH, --path PATH  Literal path to look in (e.g. /usr/bin:/bin:/usr/sbin:/sbin)
     -e VAR, --env VAR     Environment variable to take path to search from (e.g. PATH or LD_LIBRARY_PATH)
 
