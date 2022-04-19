@@ -23,9 +23,9 @@
     :alt: python versions
 
 .. image:: https://img.shields.io/pypi/l/pathsearch
-    :target: https://pypi.org/project/pathsearch/
+    :target: https://github.com/mrlegohead0x45/pathsearch/blob/main/LICENSE
     :alt: license
-    
+
 pathsearch
 ----------
 
