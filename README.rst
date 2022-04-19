@@ -6,6 +6,26 @@
     :target: https://github.com/psf/black
     :alt: black
 
+.. image:: https://img.shields.io/pypi/v/pathsearch
+    :target: https://pypi.org/project/pathsearch/
+    :alt: pypi version
+
+.. image:: https://img.shields.io/pypi/dm/pathsearch
+    :target: https://pypi.org/project/pathsearch/
+    :alt: downloads/monthly
+
+.. image:: https://static.pepy.tech/badge/pathsearch
+    :target: https://pypi.org/project/pathsearch/
+    :alt: total downloads
+
+.. image:: https://img.shields.io/pypi/pyversions/pathsearch
+    :target: https://pypi.org/project/pathsearch/
+    :alt: python versions
+
+.. image:: https://img.shields.io/pypi/l/pathsearch
+    :target: https://pypi.org/project/pathsearch/
+    :alt: license
+    
 pathsearch
 ----------
 
