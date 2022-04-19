@@ -1,6 +1,6 @@
 import os
 
-import pytest
+from pytest import raises
 
 from pathsearch import EnvironmentVariable, env_var
 
@@ -12,5 +12,5 @@ def test_env_var():
 
 def test_env_var_no_env_var():
     del os.environ["TEST_ENV_VAR"]
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         env_var("TEST_ENV_VAR")
