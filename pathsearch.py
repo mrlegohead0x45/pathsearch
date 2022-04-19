@@ -27,9 +27,10 @@ def get_paths(args: Namespace) -> list[str]:
     elif args.env is not None:  # if env var was specified
         verbose_print(f"Using environment variable: {args.env.name}", args.verbose)
         paths = args.env.value.split(os.pathsep)
-        paths.remove(
-            ""
-        )  # remove empty string if there is one (e.g if the value ends in a path separator)
+        while "" in paths:
+            paths.remove(
+                ""
+            )  # remove empty string if there is one (e.g if the value ends in a path separator)
 
     return paths
 
