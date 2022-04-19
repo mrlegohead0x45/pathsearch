@@ -4,7 +4,7 @@ from collections import namedtuple
 from sys import exit
 from typing import NoReturn, Optional
 
-VERSION = "1.1.1"
+VERSION = "1.1.2"
 EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
 
@@ -89,16 +89,17 @@ def main(args_list: Optional[list[str]] = None) -> int:
             if args.pathext
         ]
         for filepath in filepaths:
+            filename = os.path.basename(filepath)
             if os.path.isfile(filepath):
                 found = True
                 print(
-                    f"File '{args.file}' found at '{filepath}'"
+                    f"File '{filename}' found at '{filepath}'"
                     if not args.quiet
                     else filepath
                 )
 
             else:
-                verbose_print(f"File '{args.file}' not found in '{dir}'", args.verbose)
+                verbose_print(f"File '{filename}' not found in '{dir}'", args.verbose)
 
     if not found:
         if not args.quiet:
