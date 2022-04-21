@@ -41,6 +41,23 @@ For example:
     pip install pathsearch
     poetry add pathsearch
 
+
+Or you can install it from source:
+
+.. code:: bash
+
+    # clone the repository
+    git clone https://github.com/mrlegohead0x45/pathsearch/
+    # or if you have github cli
+    gh repo clone mrlegohead0x45/pathsearch
+
+    cd pathsearch
+    
+    # install the package
+    pip install -e .
+    # or you can just run it directly
+    python pathsearch.py
+
 Usage
 =====
 
