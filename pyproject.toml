@@ -25,6 +25,7 @@ isort = "^5.10.1"
 mypy = "^0.942"
 flake8 = "^4.0.1"
 pre-commit = "^2.18.1"
+pytest = "^7.1.1"
 
 [tool.poetry.scripts]
 pathsearch = "pathsearch:real_main"
