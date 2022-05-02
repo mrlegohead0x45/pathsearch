@@ -145,4 +145,3 @@ def real_main() -> NoReturn:
 
 if __name__ == "__main__":
     real_main()
-
