@@ -29,7 +29,7 @@ from collections import namedtuple
 from sys import exit
 from typing import NoReturn, Optional
 
-VERSION = "1.1.2"
+VERSION = "1.1.4"
 EnvironmentVariable = namedtuple("EnvironmentVariable", ["name", "value"])
 
 
