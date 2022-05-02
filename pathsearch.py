@@ -65,7 +65,12 @@ def verbose_print(msg: str, verbose: bool) -> None:
         print(msg)
 
 
-parser = ArgumentParser(description="Search for a file in a list of directories")
+parser = ArgumentParser(
+    description="Search for a file in a list of directories",
+    epilog="Copyright (c) 2022 mrlegohead0x45. Licensed under the MIT License, "
+    "which can be found in the source code of this program, or online at https://opensource.org/licenses/MIT. \n"
+    "This program can be found online at https://github.com/mrlegohead0x45/pathsearch and https://pypi.org/project/pathsearch/",
+)
 parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {VERSION}")
 parser.add_argument("file", help="File to search for on the specified path")
 parser.add_argument(

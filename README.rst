@@ -80,6 +80,9 @@ Usage
     -p PATH, --path PATH  Literal path to look in (e.g. /usr/bin:/bin:/usr/sbin:/sbin)
     -e VAR, --env VAR     Environment variable to take path to search from (e.g. PATH or LD_LIBRARY_PATH)
 
+    Copyright (c) 2022 mrlegohead0x45. Licensed under the MIT License, which can be found in the source code of this program, or online at https://opensource.org/licenses/MIT. This program can be found online at
+    https://github.com/mrlegohead0x45/pathsearch and https://pypi.org/project/pathsearch/
+
 You can specify a literal path to look in with the ``-p`` or ``--path`` option.
 Or, you can specify an environment variable to take the path from with the ``-e`` or ``--env`` option.
 The ``-pe`` or ``--pathext`` option is generally only useful on Windows,
@@ -90,4 +93,5 @@ See `<https://superuser.com/questions/1027078/what-is-the-default-value-of-the-p
 License
 =======
 
-This project is licensed under the MIT license.
+This project is licensed under the MIT license,
+the text of which is available at https://opensource.org/licenses/MIT and in the `LICENSE file <LICENSE>`_.
