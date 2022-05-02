@@ -9,8 +9,12 @@ def test_env_var():
     os.environ["TEST_ENV_VAR"] = "test"
     assert env_var("TEST_ENV_VAR") == EnvironmentVariable("TEST_ENV_VAR", "test")
 
+    del os.environ["TEST_ENV_VAR"]
+
 
 def test_env_var_no_env_var():
-    del os.environ["TEST_ENV_VAR"]
+    if os.environ.get("TEST_ENV_VAR"):
+        del os.environ["TEST_ENV_VAR"]
+
     with raises(ValueError):
         env_var("TEST_ENV_VAR")
